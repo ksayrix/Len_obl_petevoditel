@@ -1,0 +1,208 @@
+import telebot
+from telebot import types
+
+bot = telebot.TeleBot("7501773394:AAGQ5EpLy_bnWBfxUNEcBZYw6Vtb2FexuHA")
+
+districts = [
+    "Бокситогорский район",
+    "Волосовский район",
+    "Волховский район",
+    "Всеволожский район",
+    "Выборгский район",
+    "Гатчинский район",
+    "Кингисеппский район",
+    "Киришский район",
+    "Кировский район",
+    "Лодейнопольский район",
+    "Ломоносовский район",
+    "Лужский район",
+    "Подпорожский район",
+    "Приозерский район",
+    "Сланцевский район",
+    "Сосновоборский городской округ",
+    "Тихвинский район",
+    "Тосненский район"
+]
+
+volosovo_attractions = [
+    "ЦЕРКОВЬ НИКОЛАЯ ЧУДОТВОРЦА В ЯСТРЕБИНО",
+    "КИРХА ИОАННА КРЕСТИТЕЛЯ В ГУБАНИЦАХ",
+    "КРАЕВЕДЧЕСКИЙ МУЗЕЙ ВОЛОСОВО",
+    "СВЯТОЙ ИСТОЧНИК В ДЕРЕВНЕ КАЛОЖИЦЫ",
+    "ДОМ-МУЗЕЙ ВИЛЬДЕ В ЯСТРЕБИНО",
+    "ИКОНА ПРАСКЕВЫ ПЯТНИЦЫ В ИЛЬЕШИ",
+    "КАРТОФЕЛЬНАЯ ЛАБОРАТОРИЯ ТЕРПИЛИЦЫ",
+    "КОНЕФЕРМА ГОМОНТОВО"
+]
+
+boksitogorsk_attractions = [
+    "АНТОНИЕВО-ДЫМСКИЙ МОНАСТЫРЬ",
+    "ПИКАЛЁВСКИЙ КРАЕВЕДЧЕСКИЙ МУЗЕЙ",
+    "БОКСИТОГОРСКИЙ КРАЕВЕДЧЕСКИЙ МУЗЕЙ",
+    "ЦЕРКОВЬ ВОСКРЕСЕНИЯ ХРИСТОВА",
+    "СОМИНО - ВЕПССКАЯ ДЕРЕВНЯ",
+    "ПЕЩЕРА РОЖДЕСТВЕНСКАЯ",
+    "ВОДОПАД НА РЕКЕ РАГУША",
+    "МУЗЕЙ ИСТОРИИ ПИКАЛЁВО"
+]
+
+slantsevsky_attractions = [
+    "Ивангородская крепость",
+    "Крепость Ям",
+    "Доложская пещера",
+    "Усадьба Роткирхов-Лелонгов",
+    "Нарвские водопады",
+    "Октябрьский бульвар",
+    "Льнопрядильная фабрика барона А.Л. Штиглица"
+]
+
+podporozhsky_attractions = [
+    "Маяк Самбо",
+    "Глаз росомахи",
+    "Колокольня церкви Дмитрия Солунского",
+    "Пешеходный экологический маршрут Обитель батюшки Онеги"
+]
+
+luzhsky_attractions = [
+    "Малый Лужский каньон",
+    "Каньон реки Ящера",
+    "Пешеходный экологический маршрут Лесные дали",
+    "Пещеры около деревни Борщево",
+    "Усадьба Рапти",
+    "Пешеходный экологический маршрут Лазурные воды"
+]
+
+priozersky_attractions = [
+    "Тиверская крепость",
+    "Сосновская ГЭС",
+    "Экологическая тропа Гряда Вярямянселькя",
+    "Маяк Вуохенсало",
+    "Пешеходный экскурсионный маршрут Лосевский порог",
+    "Долговременная огневая точка Sa на Линии Маннергейма",
+    "Финские амбары"
+]
+
+tosnensky_attractions = [
+    "Мемориал Берёзовая аллея",
+    "Дворец Строгановых",
+    "Саблинские пещеры",
+    "Охотничий дом Александра II",
+    "Закладной камень храма Александра Невского",
+    "6-й карьер",
+    "5-й карьер"
+]
+
+sosnovoborsky_attractions = [
+    "Андерсенград",
+    "Пешеходный экологический маршрут у Калищенского озера",
+    "Выставка морского оружия",
+    "Входная арка",
+    "Озеро Калищенское"
+]
+
+lomonosovsky_attractions = [
+    "Радоновые источники и озёра в деревне Лопухинка",
+    "Шепелёвский маяк",
+    "Форт Серая лошадь",
+    "Экологическая тропа Форт Красная горка",
+    "База заправки подводных лодок ВМФ СССР",
+    "Форт Красная горка"
+]
+
+@bot.message_handler(commands=['start'])
+def start(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+
+    buttons = [types.KeyboardButton(district) for district in districts]
+    markup.add(*buttons)
+
+    bot.send_message(message.chat.id, "Выберите район Ленинградской области:", reply_markup=markup)
+
+@bot.message_handler(content_types=['text'])
+def handle_text(message):
+    if message.text in districts:
+        if message.text == "Волосовский район":
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+            buttons = [types.KeyboardButton(attraction) for attraction in volosovo_attractions]
+            markup.add(*buttons)
+            markup.add(types.KeyboardButton("Назад"))
+            bot.send_message(message.chat.id, f"Достопримечательности {message.text}:", reply_markup=markup)
+        elif message.text == "Бокситогорский район":
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+            buttons = [types.KeyboardButton(attraction) for attraction in boksitogorsk_attractions]
+            markup.add(*buttons)
+            markup.add(types.KeyboardButton("Назад"))
+            bot.send_message(message.chat.id, f"Достопримечательности {message.text}:", reply_markup=markup)
+        elif message.text == "Сланцевский район":
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+            buttons = [types.KeyboardButton(attraction) for attraction in slantsevsky_attractions]
+            markup.add(*buttons)
+            markup.add(types.KeyboardButton("Назад"))
+            bot.send_message(message.chat.id, f"Достопримечательности {message.text}:", reply_markup=markup)
+        elif message.text == "Подпорожский район":
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+            buttons = [types.KeyboardButton(attraction) for attraction in podporozhsky_attractions]
+            markup.add(*buttons)
+            markup.add(types.KeyboardButton("Назад"))
+            bot.send_message(message.chat.id, f"Достопримечательности {message.text}:", reply_markup=markup)
+        elif message.text == "Лужский район":
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+            buttons = [types.KeyboardButton(attraction) for attraction in luzhsky_attractions]
+            markup.add(*buttons)
+            markup.add(types.KeyboardButton("Назад"))
+            bot.send_message(message.chat.id, f"Достопримечательности {message.text}:", reply_markup=markup)
+        elif message.text == "Приозерский район":
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+            buttons = [types.KeyboardButton(attraction) for attraction in priozersky_attractions]
+            markup.add(*buttons)
+            markup.add(types.KeyboardButton("Назад"))
+            bot.send_message(message.chat.id, f"Достопримечательности {message.text}:", reply_markup=markup)
+        elif message.text == "Тосненский район":
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+            buttons = [types.KeyboardButton(attraction) for attraction in tosnensky_attractions]
+            markup.add(*buttons)
+            markup.add(types.KeyboardButton("Назад"))
+            bot.send_message(message.chat.id, f"Достопримечательности {message.text}:", reply_markup=markup)
+        elif message.text == "Сосновоборский городской округ":
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+            buttons = [types.KeyboardButton(attraction) for attraction in sosnovoborsky_attractions]
+            markup.add(*buttons)
+            markup.add(types.KeyboardButton("Назад"))
+            bot.send_message(message.chat.id, f"Достопримечательности {message.text}:", reply_markup=markup)
+        elif message.text == "Ломоносовский район":
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+            buttons = [types.KeyboardButton(attraction) for attraction in lomonosovsky_attractions]
+            markup.add(*buttons)
+            markup.add(types.KeyboardButton("Назад"))
+            bot.send_message(message.chat.id, f"Достопримечательности {message.text}:", reply_markup=markup)
+        else:
+            bot.send_message(message.chat.id, f"Вы выбрали: {message.text}")
+    elif message.text == "Назад":
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+        buttons = [types.KeyboardButton(district) for district in districts]
+        markup.add(*buttons)
+        bot.send_message(message.chat.id, "Выберите район Ленинградской области:", reply_markup=markup)
+    elif message.text in volosovo_attractions:
+        bot.send_message(message.chat.id, f"Вы выбрали достопримечательность: {message.text}")
+    elif message.text in boksitogorsk_attractions:
+        bot.send_message(message.chat.id, f"Вы выбрали достопримечательность: {message.text}")
+    elif message.text in slantsevsky_attractions:
+        bot.send_message(message.chat.id, f"Вы выбрали достопримечательность: {message.text}")
+    elif message.text in podporozhsky_attractions:
+        bot.send_message(message.chat.id, f"Вы выбрали достопримечательность: {message.text}")
+    elif message.text in luzhsky_attractions:
+        bot.send_message(message.chat.id, f"Вы выбрали достопримечательность: {message.text}")
+    elif message.text in priozersky_attractions:
+        bot.send_message(message.chat.id, f"Вы выбрали достопримечательность: {message.text}")
+    elif message.text in tosnensky_attractions:
+        bot.send_message(message.chat.id, f"Вы выбрали достопримечательность: {message.text}")
+    elif message.text in sosnovoborsky_attractions:
+        bot.send_message(message.chat.id, f"Вы выбрали достопримечательность: {message.text}")
+    elif message.text in lomonosovsky_attractions:
+        bot.send_message(message.chat.id, f"Вы выбрали достопримечательность: {message.text}")
+    else:
+        bot.send_message(message.chat.id, "Пожалуйста, выберите район из предложенного списка.")
+
+if __name__ == "__main__":
+    print('Запуск произведен')
+    bot.polling(none_stop=True)
